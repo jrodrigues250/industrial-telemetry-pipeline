@@ -1,0 +1,11 @@
+asset_id,asset_name,category,manufacturer,installation_date,location_city,location_state,latitude,longitude,criticality,hourly_downtime_cost_usd
+AST-101,Compressor Industrial Alpha,Compressores,Atlas Copco,2021-03-15,Sao Paulo,SP,-23.5505,-46.6333,HIGH,450.00
+AST-102,Bomba Centrifuga Beta,Bombas,KSB,2020-08-22,Sao Paulo,SP,-23.5505,-46.6333,MEDIUM,200.00
+AST-103,Gerador Diesel Gamma,Geradores,Caterpillar,2019-11-10,Campinas,SP,-22.9056,-47.0608,HIGH,600.00
+AST-104,Exaustor de Gases Delta,Ventilacao,WEG,2022-01-05,Campinas,SP,-22.9056,-47.0608,LOW,120.00
+AST-105,Turbina a Gas Epsilon,Turbinas,Siemens,2018-06-18,Santos,SP,-23.9608,-46.3339,CRITICAL,1200.00
+AST-106,Prensa Hidraulica Zeta,Prensas,Schuler,2021-09-30,Sao Paulo,SP,-23.5505,-46.6333,HIGH,800.00
+AST-107,Torre de Resfriamento Eta,Refrigeracao,Evapco,2020-04-12,Campinas,SP,-22.9056,-47.0608,MEDIUM,350.00
+AST-108,Caldeira a Vapor Theta,Caldeiras,Aalborg,2017-12-01,Santos,SP,-23.9608,-46.3339,CRITICAL,1500.00
+AST-109,Esteira Transportadora Iota,Logistica,Interroll,2023-02-20,Sao Paulo,SP,-23.5505,-46.6333,LOW,150.00
+AST-110,Transformador Principal Kappa,Eletrica,ABB,2019-05-14,Santos,SP,-23.9608,-46.3339,HIGH,950.00
