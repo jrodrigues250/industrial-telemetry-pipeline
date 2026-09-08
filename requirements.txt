@@ -1,5 +1,5 @@
 # Streaming & Messaging
-confluent-kafka==2.3.0
+confluent-kafka==2.15.0
 
 # HTTP & API Integration
 requests==2.31.0
@@ -8,4 +8,4 @@ requests==2.31.0
 pandas==2.2.1
 
 # Environment & Utilities
-python-dotenv==1.0.1
+python-dotenv==1.2.3
