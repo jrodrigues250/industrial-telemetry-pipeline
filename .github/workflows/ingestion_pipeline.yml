@@ -25,7 +25,15 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run IoT Telemetry Generator
+        env:
+          CONFLUENT_BOOTSTRAP_SERVERS: $pkc-619z3.us-east1.gcp.confluent.cloud:9092
+          CONFLUENT_API_KEY: $Z2PLHOH5YAYJTAJW
+          CONFLUENT_API_SECRET: $cfltb2UKU9D0ecubNleSuolNbhde4ZHovCI1obdEIC4bR/JNQ6f6WtmvxKhWb04A
         run: python src/generators/iot_telemetry_generator.py
 
       - name: Run Weather API Ingestion
+        env:
+          CONFLUENT_BOOTSTRAP_SERVERS: $pkc-619z3.us-east1.gcp.confluent.cloud:9092
+          CONFLUENT_API_KEY: $Z2PLHOH5YAYJTAJW
+          CONFLUENT_API_SECRET: $cfltb2UKU9D0ecubNleSuolNbhde4ZHovCI1obdEIC4bR/JNQ6f6WtmvxKhWb04A
         run: python src/api/weather_api_ingestion.py
