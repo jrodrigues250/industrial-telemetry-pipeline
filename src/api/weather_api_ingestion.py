@@ -1,7 +1,9 @@
 import csv
 import json
+import os
 import time
 from datetime import datetime, timezone
+from confluent_kafka import Producer
 import requests
 
 
@@ -54,9 +56,30 @@ def fetch_weather_data(latitude, longitude):
         return None
 
 
+def delivery_report(err, msg):
+    if err is not None:
+        print(f"❌ Falha ao entregar mensagem no Kafka: {err}")
+    else:
+        print(
+            f"✅ Mensagem enviada para {msg.topic()} [{msg.partition()}] no offset {msg.offset()}"
+        )
+
+
 def run_weather_ingestion():
     locations = load_asset_locations()
     print(f"--- Coletando dados climaticos para {len(locations)} cidades ---")
+
+    # Configuração do Producer usando as variáveis de ambiente/Secrets do GitHub
+    kafka_config = {
+        "bootstrap.servers": os.getenv("CONFLUENT_BOOTSTRAP_SERVERS"),
+        "security.protocol": "SASL_SSL",
+        "sasl.mechanisms": "PLAIN",
+        "sasl.username": os.getenv("CONFLUENT_API_KEY"),
+        "sasl.password": os.getenv("CONFLUENT_API_SECRET"),
+    }
+
+    producer = Producer(kafka_config)
+    topic_name = "industrial-weather-data"
 
     weather_records = []
     timestamp = datetime.now(timezone.utc).isoformat()
@@ -75,8 +98,18 @@ def run_weather_ingestion():
                 "metrics": metrics,
             }
             weather_records.append(record)
-            print(json.dumps(record, indent=2))
 
+            # Publicação no tópico do Confluent Kafka
+            payload = json.dumps(record).encode("utf-8")
+            producer.produce(
+                topic=topic_name,
+                key=city.encode("utf-8"),
+                value=payload,
+                callback=delivery_report,
+            )
+
+    # Garante a entrega de todas as mensagens antes de encerrar a execução
+    producer.flush()
     return weather_records
 
 
