@@ -37,3 +37,17 @@ jobs:
           CONFLUENT_API_KEY: Z2PLHOH5YAYJTAJW
           CONFLUENT_API_SECRET: cfltb2UKU9D0ecubNleSuolNbhde4ZHovCI1obdEIC4bR/JNQ6f6WtmvxKhWb04A
         run: python src/api/weather_api_ingestion.py
+      - name: Send Telegram Notification
+        if: always()
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          format: markdown
+          message: |
+            🚀 *Industrial Ingestion Pipeline*
+
+            *Status:* ${{ job.status == 'success' && '✅ Sucesso' || '❌ Falha' }}
+            *Run ID:* #${{ github.run_number }}
+            *Repositório:* ${{ github.repository }}
+            *Mensagem:* Lote de telemetria processado e enviado ao Confluent Cloud!
